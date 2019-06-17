@@ -1,0 +1,9 @@
+apiVersion: "authentication.istio.io/v1alpha1"
+kind: "Policy"
+metadata:
+  name: "advertisement"
+spec:
+  targets:
+  - name: advertisement
+  peers:
+  - mtls: {}

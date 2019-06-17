@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: frontend-v2
+  labels:
+    app: frontend
+    version: v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: frontend
+        version: v2
+    spec:
+      containers:
+      - name: frontend
+        image: istioweather/frontend:v2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000

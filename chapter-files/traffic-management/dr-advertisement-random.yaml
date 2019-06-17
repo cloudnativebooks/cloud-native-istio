@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: advertisement-dr
+spec:
+  host: advertisement
+  subsets:
+  - labels:
+      version: v1
+    name: v1
+  trafficPolicy:
+    loadBalancer:
+      simple: RANDOM

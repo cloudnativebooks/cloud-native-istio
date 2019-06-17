@@ -1,0 +1,88 @@
+##################################################################################################
+# Forecast service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: forecast
+  labels:
+    app: forecast
+    service: forecast
+spec:
+  ports:
+  - port: 3002
+    name: http
+  selector:
+    app: forecast
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: forecast-v1
+  labels:
+    app: forecast
+    version: v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: forecast
+        version: v1
+    spec:
+      containers:
+      - name: forecast
+        image: istioweather/forecast:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3002
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: forecast-v2
+  labels:
+    app: forecast
+    version: v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: forecast
+        version: v2
+    spec:
+      containers:
+      - name: forecast
+        image: istioweather/forecast:v2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3002		
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: forecast-dr 
+spec:
+  host: forecast
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: forecast-route
+spec:
+  hosts:
+  - forecast
+  http:
+  - route:
+    - destination:
+        host: forecast
+        subset: v2
+---

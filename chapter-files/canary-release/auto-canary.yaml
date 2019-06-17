@@ -1,0 +1,47 @@
+apiVersion: flagger.app/v1alpha3
+kind: Canary
+metadata:
+  name: ad
+  namespace: weather
+spec:
+  # deployment reference
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ad
+  # the maximum time in seconds for the canary deployment
+  # to make progress before it is rollback (default 600s)
+  progressDeadlineSeconds: 60
+  service:
+    # container port
+    port: 3003
+    # Istio virtual service host names (optional)
+    hosts:
+    - ad
+  canaryAnalysis:
+    # schedule interval (default 60s)
+    interval: 40s
+    # max number of failed metric checks before rollback
+    threshold: 3
+    # max traffic percentage routed to canary
+    # percentage (0-100)
+    maxWeight: 100
+    # canary increment step
+    # percentage (0-100)
+    stepWeight: 20
+    metrics:
+    - name: "request error rate"
+      threshold: 5
+      query: |
+        100 - sum(rate(istio_requests_total{
+             reporter="destination",
+             destination_service_namespace="weather",
+             destination_workload="ad",
+             response_code="200"
+          }[30s]
+        ))/sum(rate(istio_requests_total{
+             reporter="destination",
+             destination_service_namespace="weather",
+             destination_workload="ad",
+          }[30s]
+        )) * 100

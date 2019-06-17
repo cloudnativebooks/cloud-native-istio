@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tcp-echo-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tcp-echo
+        version: v2
+    spec:
+      containers:
+      - name: tcp-echo
+        image: istio/tcp-echo-server:1.1
+        imagePullPolicy: IfNotPresent
+        args: [ "9000", "v2" ]
+        ports:
+        - containerPort: 9000

@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: advertisement-route
+spec:
+  hosts:
+  - advertisement
+  http:
+  - match:
+    - uri:
+        prefix: /demo/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: advertisement
+        subset: v1

@@ -1,0 +1,63 @@
+##################################################################################################
+# Advertisement service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: advertisement
+  labels:
+    app: advertisement
+    service: advertisement
+spec:
+  ports:
+  - port: 3003
+    name: http
+  selector:
+    app: advertisement
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: advertisement-v1
+  labels:
+    app: advertisement
+    version: v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: advertisement
+        version: v1
+    spec:
+      containers:
+      - name: advertisement
+        image: istioweather/advertisement:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3003
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: advertisement-dr 
+spec:
+  host: advertisement
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: advertisement-route
+spec:
+  hosts:
+  - advertisement
+  http:
+  - route:
+    - destination:
+        host: advertisement
+        subset: v1
+---

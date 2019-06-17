@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ad
+  labels:
+    app: ad
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ad
+  template:
+    metadata:
+      labels:
+        app: ad
+    spec:
+      containers:
+      - name: ad
+        image: istioweather/advertisement:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3003
