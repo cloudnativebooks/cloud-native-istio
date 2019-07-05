@@ -2,3 +2,7 @@
 
 * 示例应用Weather Forecast部署配置文件：install/
 * 随书每章的示例代码：chapter-files/
+
+## 欢迎关注华为云原生微信公众号
+
+![容器魔方](qrcode.png "容器魔方")
