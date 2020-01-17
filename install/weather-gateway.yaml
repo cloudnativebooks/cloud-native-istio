@@ -18,6 +18,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: frontend-dr
+  namespace: weather
 spec:
   host: frontend
   subsets:
