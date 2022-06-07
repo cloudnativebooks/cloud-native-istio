@@ -1,0 +1,43 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: frontend-route
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - istio-system/weather-gateway
+  http:
+  - match:
+    - port: 80
+    route:
+    - destination:
+        host: frontend
+        subset: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: advertisement-route
+spec:
+  hosts:
+  - advertisement
+  http:
+  - route:
+    - destination:
+        host: advertisement
+        subset: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: forecast-route
+spec:
+  hosts:
+  - forecast
+  http:
+  - route:
+    - destination:
+        host: forecast
+        subset: v1
+---

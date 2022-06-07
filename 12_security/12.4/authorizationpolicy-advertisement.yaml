@@ -1,0 +1,17 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: advertisement
+  namespace: weather
+spec:
+  selector:
+    matchLabels:
+      app: advertisement
+  action: DENY
+  rules:
+  - from:
+    - source:
+        ipBlocks: ["172.17.0.15"]
+    to:
+    - operation:
+        methods: ["GET"]

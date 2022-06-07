@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: forecast-dr
+spec:
+  host: forecast
+  subsets:
+    - labels:
+        version: v1
+      name: v1
+    - labels:
+        version: v2
+      name: v2
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 3
+      http:
+        http1MaxPendingRequests: 5
+        maxRequestsPerConnection: 1
+    outlierDetection:
+      consecutive5xxErrors: 2
+      interval: 10s
+      baseEjectionTime: 2m
+      maxEjectionPercent: 40

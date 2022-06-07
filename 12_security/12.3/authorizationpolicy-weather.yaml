@@ -1,0 +1,15 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: deny-advertisement
+  namespace: new-weather
+spec:
+  action: DENY
+  rules:
+  - from:
+    - source:
+        namespaces: ["weather"]
+  - to:
+    - operation:
+        methods: ["GET"]
+        hosts: ["*.advertisement.new-weather"]

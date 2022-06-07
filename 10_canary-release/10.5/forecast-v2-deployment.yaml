@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forecast-v2
+  labels:
+    app: forecast
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: forecast
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: forecast
+        version: v2
+    spec:
+      containers:
+      - name: forecast
+        image: istioweather/forecast:v2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3002

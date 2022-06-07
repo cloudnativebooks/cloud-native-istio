@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: advertisement-distribution
+spec:
+  host: advertisement.weather.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      localityLbSetting:
+        enabled: true
+        distribute:
+        - from: region-east/zone-zhejiang/*
+          to:
+            "region-east/zone-zhejiang/*": 60
+            "region-east/zone-jiangsu/*": 30
+            "region-south/zone-guangdong/*": 10
+

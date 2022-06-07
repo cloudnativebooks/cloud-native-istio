@@ -1,0 +1,12 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Sidecar
+metadata:
+  name: sidecar-frontend
+spec:
+  workloadSelector:
+    labels:
+      app: frontend
+  egress:
+  - hosts:
+    - "weather/advertisement.weather.svc.cluster.local"
+    - "istio-system/*"

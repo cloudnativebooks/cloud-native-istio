@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: istio-fault-delay
+spec:
+  hosts:
+    - istio.io
+  http:
+  - fault:
+      delay:
+        fixedDelay: 3s
+        percentage:
+          value: 100
+    route:
+      - destination:
+          host: istio.io

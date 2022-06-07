@@ -1,0 +1,23 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: frontend-route
+  namespace: weather
+spec:
+  gateways:
+  - istio-system/weather-gateway
+  hosts:
+  - '*'
+  http:
+  - match:
+    - port: 80
+      headers:
+        "@request.auth.claims.groups":
+          exact: group1
+    route:
+    - destination:
+        host: frontend
+        port:
+          number: 3000
+        subset: v1
+

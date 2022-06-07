@@ -1,0 +1,32 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: frontend-dr
+spec:
+  host: frontend
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: advertisement-dr 
+spec:
+  host: advertisement
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: forecast-dr
+spec:
+  host: forecast
+  subsets:
+  - name: v1
+    labels:
+      version: v1
