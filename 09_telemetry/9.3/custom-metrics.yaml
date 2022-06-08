@@ -1,0 +1,33 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: custom-metrics
+  namespace: istio-system
+spec:
+  values:
+    telemetry:
+      enabled: true
+      v2:
+        enabled: true
+        prometheus:
+          configOverride:
+            gateway:
+              metrics:
+              - dimensions:
+                  request_host: request.host
+                  request_method: request.method
+            inboundSidecar:
+              metrics:
+              - dimensions:
+                  request_host: request.host
+                  request_method: request.method
+            outboundSidecar:
+              metrics:
+              - dimensions:
+                  request_host: request.host
+                  request_method: request.method
+  meshConfig:
+    accessLogFile: /dev/stdout
+    defaultConfig:
+      extraStatTags:
+        - request_method

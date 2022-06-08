@@ -1,0 +1,10 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: allowany-mode
+  namespace: istio-system
+spec:
+  meshConfig:
+    outboundTrafficPolicy:
+      mode: ALLOW_ANY
+    accessLogFile: /dev/stdout

@@ -1,0 +1,22 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: metrics-definition
+  namespace: istio-system
+spec:
+  values:
+    telemetry:
+      enabled: true
+      v2:
+        enabled: true
+        prometheus:
+          configOverride:
+            inboundSidecar:
+              definitions:
+                - name: my_custom_metric
+                  type: "COUNTER"
+                  value: "1"
+              metrics:
+                - name: my_custom_metric
+                  dimensions:
+                    reporter: "'proxy'"

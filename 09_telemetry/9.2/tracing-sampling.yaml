@@ -1,0 +1,9 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: tracing-sampling
+  namespace: istio-system
+spec:
+  values:
+    pilot:
+      traceSampling: 1
