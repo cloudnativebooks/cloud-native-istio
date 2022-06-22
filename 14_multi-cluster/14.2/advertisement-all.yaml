@@ -1,0 +1,38 @@
+##################################################################################################
+# Advertisement service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: advertisement
+  labels:
+    app: advertisement
+    service: advertisement
+spec:
+  ports:
+  - port: 3003
+    name: http
+  selector:
+    app: advertisement
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: advertisement-v1
+  labels:
+    app: advertisement
+    version: v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: advertisement
+        version: v1
+    spec:
+      containers:
+      - name: advertisement
+        image: istioweather/advertisement:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3003

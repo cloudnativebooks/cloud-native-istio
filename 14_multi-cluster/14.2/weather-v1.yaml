@@ -1,0 +1,129 @@
+##################################################################################################
+# Frontend service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+    service: frontend
+spec:
+  ports:
+  - port: 3000
+    name: http
+  selector:
+    app: frontend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-v1
+  labels:
+    app: frontend
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: frontend
+        version: v1
+    spec:
+      containers:
+      - name: frontend
+        image: istioweather/frontend:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+---
+##################################################################################################
+# Advertisement service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: advertisement
+  labels:
+    app: advertisement
+    service: advertisement
+spec:
+  ports:
+  - port: 3003
+    name: http
+  selector:
+    app: advertisement
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: advertisement-v1
+  labels:
+    app: advertisement
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: advertisement
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: advertisement
+        version: v1
+    spec:
+      containers:
+      - name: advertisement
+        image: istioweather/advertisement:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3003
+---
+##################################################################################################
+# Forecast service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: forecast
+  labels:
+    app: forecast
+    service: forecast
+spec:
+  ports:
+  - port: 3002
+    name: http
+  selector:
+    app: forecast
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forecast-v1
+  labels:
+    app: forecast
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: forecast
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: forecast
+        version: v1
+    spec:
+      containers:
+      - name: forecast
+        image: istioweather/forecast:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3002
+---
