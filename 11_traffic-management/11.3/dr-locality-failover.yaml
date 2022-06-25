@@ -1,9 +1,9 @@
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: advertisement-failover
+  name: recommendation-failover
 spec:
-  host: advertisement.weather.svc.cluster.local
+  host: recommendation.weather.svc.cluster.local
   trafficPolicy:
     connectionPool:
       http:
