@@ -1,0 +1,10 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: WorkloadEntry
+metadata:
+  name: recommendation-vm
+spec:
+  serviceAccount: recommendation
+  address: 10.66.6.20
+  labels:
+    app: recommendation
+    version: v1
