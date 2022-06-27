@@ -2,6 +2,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
   name: recommendation
+  namespace: weather
 spec:
   hosts:
   - recommendation.weather.svc.cluster.local

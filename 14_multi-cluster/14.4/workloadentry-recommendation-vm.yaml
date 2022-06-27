@@ -2,6 +2,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: WorkloadEntry
 metadata:
   name: recommendation-vm
+  namespace: weather
 spec:
   serviceAccount: recommendation
   address: 10.66.6.20
