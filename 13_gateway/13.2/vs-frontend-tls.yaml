@@ -6,7 +6,7 @@ spec:
   gateways:
   - istio-system/weather-gateway
   hosts:
-  - www.weather.cn
+  - wistio.cc
   http:
   - route:
     - destination:
