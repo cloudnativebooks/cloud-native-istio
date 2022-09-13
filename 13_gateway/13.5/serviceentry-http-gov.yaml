@@ -4,7 +4,7 @@ metadata:
   name: gov
 spec:
   hosts:
-  - www.gov.cn
+  - idouba.cc
   ports:
   - number: 80
     name: http
