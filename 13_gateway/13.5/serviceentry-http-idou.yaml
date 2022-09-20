@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
-  name: gov
+  name: idou
 spec:
   hosts:
   - idouba.cc

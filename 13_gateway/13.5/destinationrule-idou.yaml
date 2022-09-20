@@ -1,8 +1,8 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: egressgw-gov
+  name: egressgw-idou
 spec:
   host: istio-egressgateway.istio-system.svc.cluster.local
   subsets:
-  - name: gov
+  - name: idou

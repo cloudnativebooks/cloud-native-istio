@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: vs-http-gov
+  name: vs-http-idou
 spec:
   hosts:
   - idouba.cc
@@ -16,7 +16,7 @@ spec:
     route:
     - destination:
         host: istio-egressgateway.istio-system.svc.cluster.local
-        subset: gov
+        subset: idou
         port:
           number: 80
       weight: 100
